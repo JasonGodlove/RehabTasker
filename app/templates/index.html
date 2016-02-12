@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="../../favicon.ico">
+
+    <title>Rahab Tasker Feature Explorer</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="../static/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
+    <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  </head>
+<style>
+</style>
+  <body>
+
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#">Rehab Tasker</a>
+        </div>
+        <div id="navbar" class="collapse navbar-collapse">
+          <ul class="nav navbar-nav">
+            <li class="active"><a href="#">Feature Explorer</a></li>
+            <li><a href="./slides">Slideshow</a></li>
+            <li><a href="https://github.com/JasonGodlove/RehabTasker.git" target="_blank">GitHub</a></li>
+	    <li><a href="https://www.linkedin.com/in/jason-godlove-5713899" target="_blank">LinkedIn</a></li>
+	    <li><a href="http://constanttherapy.com/" target="_blank">Constant Therapy</a></li>
+	    <li><a href="./contact">Contact</a></li>
+          </ul>
+        </h/div><!--/.nav-collapse -->
+      </div>
+    </nav>
+
+<br><br>
+
+<div style='padding-left: 50px'>
+
+    <div class="starter-template">
+	<h1>Performance Model Feature Explorer</h1>
+        <h2>Task: Division Level 2 </h2>
+
+        <p>The model estimates how many days a user will spend doing the task in order to perform well enough to advance to the next task.</p> 
+	<p>Adjust user characteristics to see how each feature affects the estimate.</p>
+
+    </div>
+<table style='width:80%'>
+<tr>
+<td>
+    <div class = "container">
+
+      <form  id='paramform' action="/output" method="GET">
+
+	<table style='width:300px'>
+		<tr>
+			<td><label for="Age">Age:</label> </td>
+			<td><select class="form-control" id="Age" name='Age' style='width:80px'>
+				<option value='0'>N/A</option>		
+				<option value='1'>&lt6</option>
+				<option value='2'>6-12</option>
+				<option value='3'>13-21</option>
+				<option value='4'>22-50</option>
+				<option value='5'>51-70</option>
+				<option value='6'>&gt70</option>
+			</select></td>
+			<td></td>
+			<td><label for="Gender">Gender:</label> </td>
+			<td><select class="form-control" id="Gender" name='Gender' style='width:100px'>
+				<option value='0'>N/A</option>		
+				<option value='1'>Male</option>
+				<option value='2'>Female</option>
+			</select></td>
+	</table>
+		
+	<h4>Disorder</h4>
+	<label class="checkbox-inline"><input type="checkbox"  id='Disorder1' name='Disorder1'>Tramatic Brain Injury</label>
+	<label class="checkbox-inline"><input type="checkbox"  id='Disorder2' name='Disorder2'>Stroke</label>
+	<label class="checkbox-inline"><input type="checkbox"  id='Disorder3' name='Disorder3'>Aphasia</label>
+	<label class="checkbox-inline"><input type="checkbox"  id='Disorder4' name='Disorder4'>Dyslexia</label>
+	<label class="checkbox-inline"><input type="checkbox"  id='Disorder5' name='Disorder5'>Dementia</label>
+	<label class="checkbox-inline"><input type="checkbox"  id='Disorder6' name='Disorder6'>Apraxia</label>
+	<label class="checkbox-inline"><input type="checkbox"  id='Disorder7' name='Disorder7'>Other</label>
+	
+	<h4>Current Therapy</h4>
+	<label class="checkbox-inline"><input type="checkbox"  id='Therapy1' name='Therapy1'>Rehab Hospital</label>
+	<label class="checkbox-inline"><input type="checkbox"  id='Therapy2' name='Therapy2'>Nursing Home</label>
+	<label class="checkbox-inline"><input type="checkbox"  id='Therapy3' name='Therapy3'>Outpatient Clinic</label>
+	<label class="checkbox-inline"><input type="checkbox"  id='Therapy4' name='Therapy4'>Homecare</label>
+	<label class="checkbox-inline"><input type="checkbox"  id='Therapy5' name='Therapy5'>School</label>
+	<label class="checkbox-inline"><input type="checkbox"  id='Therapy6' name='Therapy6'>Hospital</label>
+	<label class="checkbox-inline"><input type="checkbox"  id='Therapy7' name='Therapy7'>None</label>
+	<label class="checkbox-inline"><input type="checkbox"  id='Therapy8' name='Therapy8'>AcuteCareHospital</label>
+	<label class="checkbox-inline"><input type="checkbox"  id='Therapy9' name='Therapy9'>Private Practice</label>
+
+	<h4>Domain Deficits</h4>
+	<label class="checkbox-inline"><input type="checkbox"  id='Deficit1' name='Deficit1'>Reading</label>
+	<label class="checkbox-inline"><input type="checkbox"  id='Deficit2' name='Deficit2'>Writing</label>
+	<label class="checkbox-inline"><input type="checkbox"  id='Deficit3' name='Deficit3'>Speaking</label>
+	<label class="checkbox-inline"><input type="checkbox"  id='Deficit4' name='Deficit4'>Comprehension</label>
+	<label class="checkbox-inline"><input type="checkbox"  id='Deficit5' name='Deficit5'>Attention</label>
+	<label class="checkbox-inline"><input type="checkbox"  id='Deficit6' name='Deficit6'>Memory</label>
+	<label class="checkbox-inline"><input type="checkbox"  id='Deficit7' name='Deficit7'>Visual</label>
+	<label class="checkbox-inline"><input type="checkbox"  id='Deficit8' name='Deficit8'>Problem Solving</label>
+	<label class="checkbox-inline"><input type="checkbox"  id='Deficit9' name='Deficit9'>Other</label>
+
+	<h4>Prior Task Performance</h4>
+	<table style='width:900px'>
+		<tr>
+			<td><b>Division Lvl 1:</b></td>
+			<td><input id="Task13" name='Task13' type="range" min="1" max="10" step="1" value="1"/></td>
+      			<td><span id="Task13CurrentSliderValLabel">Days Completed: <span id="Task13SliderVal">1</span></span></td>		
+			<td><input id="Task13Acc" name='Task13Acc' type="range" min="0" max="100" step="10" value="0"/></td>
+      			<td><span id="Task13AccCurrentSliderValLabel">Starting Accuracy: <span id="Task13AccSliderVal">0</span>%</span></td>
+		</tr>
+		<tr>
+			<td><b>Multiplication Lvl 3:</b></td>
+			<td><input id="Task12" name='Task12' type="range" min="1" max="10" step="1" value="1"/></td>
+      			<td><span id="Task12CurrentSliderValLabel">Days Completed: <span id="Task12SliderVal">1</span></span></td>		
+			<td><input id="Task12Acc" name='Task12Acc' type="range" min="0" max="100" step="10" value="0"/></td>
+      			<td><span id="Task12AccCurrentSliderValLabel">Starting Accuracy: <span id="Task12AccSliderVal">0</span>%</span></td>
+		</tr>
+		<tr>
+			<td><b>Multiplication Lvl 2:</b></td>
+			<td><input id="Task11" name='Task11' type="range" min="1" max="10" step="1" value="1"/></td>
+      			<td><span id="Task11CurrentSliderValLabel">Days Completed: <span id="Task11SliderVal">1</span></span></td>		
+			<td><input id="Task11Acc" name='Task11Acc' type="range" min="0" max="100" step="10" value="0"/></td>
+      			<td><span id="Task11AccCurrentSliderValLabel">Starting Accuracy: <span id="Task11AccSliderVal">0</span>%</span></td>
+		</tr>
+		<tr>
+			<td><b>Multiplication Lvl 1:</b></td>
+			<td><input id="Task10" name='Task10' type="range" min="1" max="10" step="1" value="1"/></td>
+      			<td><span id="Task10CurrentSliderValLabel">Days Completed: <span id="Task10SliderVal">1</span></span></td>		
+			<td><input id="Task10Acc" name='Task10Acc' type="range" min="0" max="100" step="10" value="0"/></td>
+      			<td><span id="Task10AccCurrentSliderValLabel">Starting Accuracy: <span id="Task10AccSliderVal">0</span>%</span></td>
+		</tr>
+		<tr>
+			<td><b>Subtraction Lvl 5:</b></td>
+			<td><input id="Task9" name='Task9' type="range" min="1" max="10" step="1" value="1"/></td>
+      			<td><span id="Task9CurrentSliderValLabel">Days Completed: <span id="Task9SliderVal">1</span></span></td>		
+			<td><input id="Task9Acc" name='Task9Acc' type="range" min="0" max="100" step="10" value="0"/></td>
+      			<td><span id="Task9AccCurrentSliderValLabel">Starting Accuracy: <span id="Task9AccSliderVal">0</span>%</span></td>
+		</tr>
+		<tr>
+			<td><b>Subtraction Lvl 4:</b></td>
+			<td><input id="Task8" name='Task8' type="range" min="1" max="10" step="1" value="1"/></td>
+      			<td><span id="Task8CurrentSliderValLabel">Days Completed: <span id="Task8SliderVal">1</span></span></td>		
+			<td><input id="Task8Acc" name='Task8Acc' type="range" min="0" max="100" step="10" value="0"/></td>
+      			<td><span id="Task8AccCurrentSliderValLabel">Starting Accuracy: <span id="Task8AccSliderVal">0</span>%</span></td>
+		</tr>
+		<tr>
+			<td><b>Addition Lvl 5:</b></td>
+			<td><input id="Task7" name='Task7' type="range" min="1" max="10" step="1" value="1"/></td>
+      			<td><span id="Task7CurrentSliderValLabel">Days Completed: <span id="Task7SliderVal">1</span></span></td>		
+			<td><input id="Task7Acc" name='Task7Acc' type="range" min="0" max="100" step="10" value="0"/></td>
+      			<td><span id="Task7AccCurrentSliderValLabel">Starting Accuracy: <span id="Task7AccSliderVal">0</span>%</span></td>
+		</tr>
+		
+	</table>
+	
+        <div>
+
+          <button type="button" class="btn btn-default btn-lg" id='Reset' name='Reset'>Reset User Parameters</button><!-- could use the reset button but doesn't clear the custom labels-->
+
+        </div>
+
+      </form>
+
+    </div>
+
+    <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+
+    <script src="static/js/bootstrap.min.js"></script>
+
+
+
+
+</div> <!-- /.container-->
+</td>
+<td>	
+<div class="container">
+
+      <div class="starter-template">
+
+        <h3>Performance Estimate:</h3>
+
+        <p class="lead"> Based on the current Parameters, the model predicts <br>how many Days it will take the User to complete the Task.</p>
+	
+      </div>
+	
+	<img src="{{url_for('figure_drawing',slope=6)}}" width="600" id="estimate_figure">
+
+</div><!-- /.container -->
+</td>
+<!--
+<iframe src="https://docs.google.com/presentation/d/1rvdnOA5yJtfJXeh3M0Sg0Kr2b5VZbOTNwdCHsxrnqa8/embed?start=false&loop=false&delayms=60000" frameborder="0" width="960" height="749" allowfullscreen="true" mozallowfullscreen="true" webkitallowfullscreen="true"></iframe>
+-->	
+      <div>
+
+
+      <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+      <script src="static/js/bootstrap.min.js"></script>
+      
+     </div><!-- /.container -->
+
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+
+<script src="../static/js/bootstrap.min.js"></script>
+
+<script type='text/javascript' src="../static/js/bootstrap-slider.js"></script>    
+
+    <script type='text/javascript'>
+slidername = []
+paramname = ['Age','Gender','Task13','Task13Acc','Task12','Task12Acc','Task11','Task11Acc','Task10','Task10Acc','Task9','Task9Acc','Task8','Task8Acc','Task7','Task7Acc']
+checkname = ['Disorder1','Disorder2','Disorder3','Disorder4','Disorder5','Disorder6','Disorder7',
+		'Deficit1','Deficit2','Deficit3','Deficit4','Deficit5','Deficit6','Deficit7','Deficit8','Deficit9',
+		'Therapy1','Therapy2','Therapy3','Therapy4','Therapy5','Therapy6','Therapy7','Therapy8','Therapy9']
+function getUrl() {
+	url = '/figure?'
+	for (i=0; i<slidername.length; i++)
+		url += slidername[i]+'='+$('#'+slidername[i]).attr("value")+'&'
+	for (i=0; i<paramname.length; i++)
+		url += paramname[i]+'='+$('#'+paramname[i]).val()+'&'
+	for (i=0; i<checkname.length; i++)
+		url += checkname[i]+'='+$('#'+checkname[i]).prop('checked')+'&'	
+	return url;
+}
+
+
+$(document).ready(function() {
+		
+
+			$('#Age').click(function() {
+	    			$("#estimate_figure").attr('src', getUrl());
+			});
+
+			$('#Gender').click(function() {
+	    			$("#estimate_figure").attr('src', getUrl());
+			});
+
+			$('#Task13').click(function() {
+				$("#Task13SliderVal").text($('#Task13').val())
+	    			$("#estimate_figure").attr('src', getUrl());
+			});
+			$('#Task13Acc').click(function() {
+				$("#Task13AccSliderVal").text($('#Task13Acc').val())
+	    			$("#estimate_figure").attr('src', getUrl());
+			});
+
+			$('#Task12').click(function() {
+				$("#Task12SliderVal").text($('#Task12').val())
+	    			$("#estimate_figure").attr('src', getUrl());
+			});
+			$('#Task12Acc').click(function() {
+				$("#Task12AccSliderVal").text($('#Task12Acc').val())
+	    			$("#estimate_figure").attr('src', getUrl());
+			});
+
+			$('#Task11').click(function() {
+				$("#Task11SliderVal").text($('#Task11').val())
+	    			$("#estimate_figure").attr('src', getUrl());
+			});
+			$('#Task11Acc').click(function() {
+				$("#Task11AccSliderVal").text($('#Task11Acc').val())
+	    			$("#estimate_figure").attr('src', getUrl());
+			});
+
+			$('#Task10').click(function() {
+				$("#Task10SliderVal").text($('#Task10').val())
+	    			$("#estimate_figure").attr('src', getUrl());
+			});
+			$('#Task10Acc').click(function() {
+				$("#Task10AccSliderVal").text($('#Task10Acc').val())
+	    			$("#estimate_figure").attr('src', getUrl());
+			});
+
+			$('#Task9').click(function() {
+				$("#Task9SliderVal").text($('#Task9').val())
+	    			$("#estimate_figure").attr('src', getUrl());
+			});
+			$('#Task9Acc').click(function() {
+				$("#Task9AccSliderVal").text($('#Task9Acc').val())
+	    			$("#estimate_figure").attr('src', getUrl());
+			});
+
+			$('#Task8').click(function() {
+				$("#Task8SliderVal").text($('#Task8').val())
+	    			$("#estimate_figure").attr('src', getUrl());
+			});
+			$('#Task8Acc').click(function() {
+				$("#Task8AccSliderVal").text($('#Task8Acc').val())
+	    			$("#estimate_figure").attr('src', getUrl());
+			});
+
+			$('#Task7').click(function() {
+				$("#Task7SliderVal").text($('#Task7').val())
+	    			$("#estimate_figure").attr('src', getUrl());
+			});
+			$('#Task7Acc').click(function() {
+				$("#Task7AccSliderVal").text($('#Task7Acc').val())
+	    			$("#estimate_figure").attr('src', getUrl());
+			});
+
+
+			$('#Disorder1').click(function() {
+	    			$("#estimate_figure").attr('src', getUrl());
+			});
+			
+			$('#Disorder2').click(function() {
+	    			$("#estimate_figure").attr('src', getUrl());
+			});
+			
+			$('#Disorder3').click(function() {
+	    			$("#estimate_figure").attr('src', getUrl());
+			});
+			
+			$('#Disorder4').click(function() {
+	    			$("#estimate_figure").attr('src', getUrl());
+			});
+
+			$('#Disorder5').click(function() {
+	    			$("#estimate_figure").attr('src', getUrl());
+			});
+			
+			$('#Disorder6').click(function() {
+	    			$("#estimate_figure").attr('src', getUrl());
+			});
+			
+			$('#Disorder7').click(function() {
+	    			$("#estimate_figure").attr('src', getUrl());
+			});
+
+			$('#Deficit1').click(function() {
+	    			$("#estimate_figure").attr('src', getUrl());
+			});
+			$('#Deficit2').click(function() {
+	    			$("#estimate_figure").attr('src', getUrl());
+			});
+			$('#Deficit3').click(function() {
+	    			$("#estimate_figure").attr('src', getUrl());
+			});
+			$('#Deficit4').click(function() {
+	    			$("#estimate_figure").attr('src', getUrl());
+			});
+			$('#Deficit5').click(function() {
+	    			$("#estimate_figure").attr('src', getUrl());
+			});
+			$('#Deficit6').click(function() {
+	    			$("#estimate_figure").attr('src', getUrl());
+			});
+			$('#Deficit7').click(function() {
+	    			$("#estimate_figure").attr('src', getUrl());
+			});
+			$('#Deficit8').click(function() {
+	    			$("#estimate_figure").attr('src', getUrl());
+			});
+			$('#Deficit9').click(function() {
+	    			$("#estimate_figure").attr('src', getUrl());
+			});
+
+			$('#Therapy1').click(function() {
+	    			$("#estimate_figure").attr('src', getUrl());
+			});
+			$('#Therapy2').click(function() {
+	    			$("#estimate_figure").attr('src', getUrl());
+			});
+			$('#Therapy3').click(function() {
+	    			$("#estimate_figure").attr('src', getUrl());
+			});
+			$('#Therapy4').click(function() {
+	    			$("#estimate_figure").attr('src', getUrl());
+			});
+			$('#Therapy5').click(function() {
+	    			$("#estimate_figure").attr('src', getUrl());
+			});
+			$('#Therapy6').click(function() {
+	    			$("#estimate_figure").attr('src', getUrl());
+			});
+			$('#Therapy7').click(function() {
+	    			$("#estimate_figure").attr('src', getUrl());
+			});
+			$('#Therapy8').click(function() {
+	    			$("#estimate_figure").attr('src', getUrl());
+			});
+			$('#Therapy9').click(function() {
+	    			$("#estimate_figure").attr('src', getUrl());
+			});
+
+
+			$('#Reset').click(function() {
+				$('#paramform')[0].reset();
+				$("#Task13SliderVal").text($('#Task13').val())
+				$("#Task13AccSliderVal").text($('#Task13').val())
+	    			$("#estimate_figure").attr('src', getUrl());
+			});
+
+});
+
+</script>
+
+<!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+
+
+	
+  </body>
+</html>
+

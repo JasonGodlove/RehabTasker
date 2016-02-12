@@ -1,0 +1,32 @@
+# RehabTasker
+
+runaws.py should be run with “sudo supervisord -c simple.conf” when running on the AWS. 
+When running on a local machine, run ./run.py in terminal and connect to the localhost:5000
+
+
+Webpage Code can be found in the app Folder. All relevant python scripts can be found in  views.py
+
+Figures used in the slideshow can be found in the Useful_Figures Folder.
+
+	ArithmeticTaskSessionHist.png shows histograms for each of the Arithmetic Tasks for the the number of sessions users actually performed the task at that difficulty.
+
+
+Python Analysis Tools are in the Analysis_Scripts Folder:
+
+	Results from these scripts has been removed to protect confidentiality.
+
+	AppCode.py Contains functions used to create collated data for use by the website including the model and user parameter pickles.
+
+	feature_extractor.py – Generates feature model using prequeried pkl files for a given task in a domain (final py script used to fine tune the model and display it) Most up-to-date regression 	and validation techniques are here
+
+	feature_regression.py – Use to collect feature data from the database and turn into pickles. Initial attempts at a model are here.
+
+	task_progression_table.py – Creates the task_progression data frame from an xls file and also plots a single patient's progression through the tasks
+
+	task_desciptors.py – script that Finds how much overlap there is between the tasks and plots it
+
+	task_progression.pkl – Database for task progression order through the Domains
+
+	reg_features_Arithmetic_14.pkl – Removed for Confidentiality – Contains the User data 	features used to build the model
+
+	TaskProgressionRules_2016-01-14.xlsx – Removed for Confidentiality – Contains the task 	progression for each domain

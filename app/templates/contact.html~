@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="../../favicon.ico">
+
+    <title>Rahab Tasker Feature Explorer</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="../static/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../static/css/bootstrap-slider.css" rel="stylesheet">    
+    <link href="css/business-frontpage.css" rel="stylesheet">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
+    <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  </head>
+<style>
+</style>
+  <body>
+
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="./index">Rehab Tasker</a>
+        </div>
+        <div id="navbar" class="collapse navbar-collapse">
+          <ul class="nav navbar-nav">
+            <li><a href="./index">Feature Explorer</a></li>
+            <li><a href="./slides">Slideshow</a></li>
+            <li><a href="https://github.com/JasonGodlove/Insight.git" target="_blank">GitHub</a></li>
+	    <li><a href="https://www.linkedin.com/in/jason-godlove-5713899" target="_blank">LinkedIn</a></li>
+	    <li><a href="http://constanttherapy.com/" target="_blank">Constant Therapy</a></li>
+	    <li class="active"><a href="#">Contact</a></li>
+          </ul>
+        </h>
+      </div>
+    </nav>
+
+
+
+
+<!-------------------------------------------------------------------------------------->
+
+ 
+    <header>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12"><br><br>
+                    <center><img class="img-rounded img-center" src="../static/images/hiking.png" height="340" alt=""></center>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Page Content -->
+    <div class="container">
+
+        <hr>
+
+        <div class="row">
+            <div class="col-sm-8">
+                <h2>About Me:&nbsp&nbspJason Godlove</h2>
+                <p>Rehab Tasker was built as part of my fellowship at <a href="http://insighthealthdata.com/" target="_blank">Insight Health Data Science</a> in Boston during Winter 2016.</p>
+            </div>
+            <div class="col-sm-4">
+                <h2>Contact</h2>
+                <address>
+                    Email:&nbsp<a href="mailto:#">Jason.Godlove@gmail.com</a>
+                </address>
+            </div>
+        </div>
+        <!-- /.row -->
+
+        <hr>
+
+        <div class="row">
+            <div class="col-sm-3">
+                <img class="img-rounded img-responsive img-center" src="../static/images/monkey.png" alt="">
+                <h2>Brain-Controlled-Prosthetics</h2>
+                <p>PhD Bioengineering at the University of Pittsburgh</p>
+            </div>
+
+            <div class="col-sm-3">
+                <img class="img-rounded img-responsive img-center" src="../static/images/strokebrain.png" alt="">
+                <h2>Stroke Recovery</h2>
+                <p>Postdoc at University of California San Francisco</p>
+            </div>
+            <div class="col-sm-3">
+                <img class="img-rounded img-responsive img-center" src="../static/images/glove.png" alt="">
+                <h2>Hand Rehabilitation</h2>
+                <p>Department of Veteran Affairs in San Francisco</p>
+            </div>
+	    <div class="col-sm-3">
+                <img class="img-rounded img-responsive img-center" src="../static/images/guesswho.png" alt="">
+                <h2>Designing Boardgames</h2>
+                <p>Special Edition of Guess Who featuring the PI's of the Neuroscience Department</p>
+            </div>
+        </div>
+        <!-- /.row -->
+
+
+
+
+
+
+
+
+
+
+
+<!------------------------------------------------------------------------------------------->
+
+
+
+     <div>
+      <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+      <script src="static/js/bootstrap.min.js"></script>
+      
+     </div><!-- /.container -->
+
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+
+<script src="../static/js/bootstrap.min.js"></script>
+
+<script type='text/javascript' src="../static/js/bootstrap-slider.js"></script>    
+
+    <script type='text/javascript'>
+
+
+$(document).ready(function() {
+		
+});
+
+</script>
+
+<!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+
+
+	
+  </body>
+</html>
+
