@@ -92,6 +92,21 @@ def plot_regression(predicted,output):
     plt.title('Linear Regression for Task %i'%target_task)
 #end of plott_regression
 
+def generate_model(features,output):
+    #Generates the model for the task
+    #Noise cleaning
+    output[output>11]=11
+    
+    regr = linear_model.BayesianRidge(normalize=True)
+    
+    regr.fit(features,output)
+    
+    
+    predicted = skcv.cross_val_predict(regr,f,output,cv=len(output)) #Use leave one out cross validation to get prediction values of the output 
+    
+    predicted[predicted<1] = 1 #Cleaning the output of the data to make logical sense and impose limits.
+    predicted[predicted>11]=11
+    return regr, predicted
 
 
 
@@ -99,7 +114,7 @@ def plot_regression(predicted,output):
 
 #Setting up task parameters
 domain = 'Arithmetic'      
-target_task = 13 #division lvl 2   
+target_task = 14 #division lvl 2   
 num_task = 20 #set for Arithmetic domain
 sample_size = []
 #for target_task in range(20):
@@ -136,23 +151,11 @@ temp = np.argsort(output)
 output = output[temp]
 f = f[temp,:]
 
-#Noise cleaning
-output[output>11]=11
 
-regr = linear_model.BayesianRidge(normalize=True)
+regr, predicted = generate_model(f,output)
 
-regr.fit(f,output)
 pickle.dump(regr,open('reg_model_%s_%i.pkl'%(domain,target_task),'wb'))
-
-#regr = skRF.RandomForestRegressor(n_estimators=10)
-# Train the model using the training sets
-
-predicted = skcv.cross_val_predict(regr,f,output,cv=len(output))
-predicted[predicted<1] = 1
-predicted[predicted>11]=11
-
-
-
+    
 
 #Prints the model fit statistics
 

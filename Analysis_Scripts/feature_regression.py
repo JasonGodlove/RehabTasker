@@ -51,16 +51,14 @@ import pickle
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
-from scipy.stats import linregress 
+
 from os import chdir
-from os.path import isfile
-from time import sleep
-import scipy.stats as stats
-from sklearn.ensemble import RandomForestClassifier 
+
 from sklearn import linear_model
-from sklearn.preprocessing import normalize
-from sklearn.feature_selection import RFECV
-import sklearn.svm as svm
+import sklearn.metrics as metrics
+import sklearn.cross_validation as skcv
+
+import seaborn as sns
 
 def query_patient_data(p,domain,target_task,cur):                
     query = """SELECT count(*) FROM constant_therapy.sessions where patient_id = %s and task_type_id = %i and task_level =%i"""%(p,domain_task[domain_task.progression_order.values==target_task].task_type_id.values,domain_task[domain_task.progression_order.values==target_task].task_level.values)
@@ -246,6 +244,61 @@ def patient_query(cur):
     return patient_list
 
 
+def generate_model(features,output):
+    #Generates the model for the task
+    #Noise cleaning
+    output[output>11]=11
+    
+    regr = linear_model.BayesianRidge(normalize=True)
+    
+    regr.fit(features,output)
+    
+    
+    predicted = skcv.cross_val_predict(regr,f,output,cv=len(output)) #Use leave one out cross validation to get prediction values of the output 
+    
+    predicted[predicted<1] = 1 #Cleaning the output of the data to make logical sense and impose limits.
+    predicted[predicted>11]=11
+    return regr, predicted
+
+
+def plot_regression(predicted,output):
+    #Plots the predicted vs Observed in a box plot and scatter plot
+    plt.figure()
+    # Plot outputs
+    #plt.subplot(121)
+    c = sns.color_palette('RdYlGn', 12)#"RdYlGn",'Spectral'
+    c.reverse() #so red is on far right    
+    df = pd.DataFrame({'observed':output,'predicted':predicted})
+    sns.boxplot(x='observed',y='predicted',data=df,palette=c,fliersize=0,linewidth=2)
+    
+    sns.stripplot(x='observed',y='predicted',data=df,jitter=True,color='k',size=10,alpha=.5)
+    #plt.scatter(output-1+np.random.uniform(-.1,.1,len(output)), predicted,  facecolor='k',s=60,linewidths=1,edgecolor='k',alpha=.5) #wierd alignment issue with output being +1
+    plt.xticks(range(0,11),range(1,12),fontsize=24)
+    plt.yticks(range(1,12),fontsize=24) 
+    #plt.xlabel('')
+    #plt.ylabel('')
+    
+    plt.xlabel('Observed # Sessions',fontsize=30)
+    plt.ylabel('Predicted # Sessions',fontsize=30)
+    plt.title('Linear Regression for Task %i'%target_task)
+#end of plott_regression
+
+def cross_val_feature(features,output,regr):
+    #Does Cross Validation on each of the figures, calculating the average values of the feature parameters and returns the mean value of the parameters to determine feature importance
+    parameters = []
+    loo = skcv.LeaveOneOut(len(output))
+    for i,test in loo:
+        regr.fit(features[i,:],output[i])
+        parameters.append(regr.coef_)
+    parameters=np.array(parameters)
+    rank = np.mean(parameters,axis=0)
+    return rank
+#    order = np.argsort(abs(rank))    
+#    for i in order:
+#    print '%s :%.2f'%(f_name[i],rank[i])
+#end of cross_val_feature
+
+
 
 chdir('/home/jgodlove/gitrepo/Insight/ConstantTherapy')
 
@@ -259,7 +312,6 @@ print 'Loaded task_progression pickle'
 target_domains = {'Arithmetic':[np.nan],'Writing':[np.nan],'Production':[9,10,11],'Quantitative':[4,5,6],'AuditoryMemory':[16,0,7,6,5,3,15]} # numbers indicate progression IDs of overlaping tasks (generally just one task type) 
 
 #Connect to SQL to get the task_types table to match display_name and id with system_name 
-
 
 config = {
 #Removed for Confidentiality
@@ -325,9 +377,10 @@ for domain in target_domains:
     
             
        
-            #Now handle tasks that were not attempted
+            #Isolating features and creating the model
+            
             f = np.array(features)
-            f_name = np.array(feature_name)
+            f_name = np.array(generate_feature_name(num_task))
             s_f = np.size(f,axis=1)
             
             #handling Nan values for Accuracy and Latency            
@@ -336,117 +389,63 @@ for domain in target_domains:
                 f[np.isnan(f[:,i*3+2]),i*3+2] = np.nanmin(f[:,i*3+2])
             
             
+               
+            #reordering features to put the output on the outside
             output = np.array(f[:,target_task*3])
-            #output[output==1] = 0
-            #output[np.where(np.logical_and(output>=4, output<=6))] = 1
-            #output[output>1] = 1
+               
+            #f[:,target_task*3] = f[:,-1] #copies gender over target_task sessions
+            #f = f[:,:-1]    #removes gender from the last column
+            f = np.concatenate((f[:,:target_task*3],f[:,-29:]),axis=1) #Removes tasks after the task performance
+            
+            #f_name[target_task*3] = f_name[-1] #copies gender over target_task sessions
+            #f_name = f_name[:-1]    #removes gender from the last column
+            f_name = np.concatenate((f_name[:target_task*3],f_name[-29:]),axis=0)
+                   
+            temp = np.argsort(output)
+            output = output[temp]
+            f = f[temp,:]
             
             
+            regr, predicted = generate_model(f,output)
             
-            #Old Model attempts using all task data except the task in question (later changed to just preceding tasks
-            
-            f[:,target_task*3] = f[:,-1] #copies gender over target_task sessions
-            f = f[:,:-1]    #removes gender from the last column
-            f_name[target_task*3] = f_name[-1] #copies gender over target_task sessions
-            f_name = f_name[:-1]    #removes gender from the last column
-                        
-            #test and training size before implimenting leave one out cross-validation (see feature_extractor.py) 
-            train_size = int(np.floor(np.size(f,axis=0)*.8))
-            
-            train_X = f[:train_size]
-            train_Y = output[:train_size]
-            test_X = f[train_size:]
-            test_Y = output[train_size:]
-            #del f,output
-            
-            temp = np.argsort(test_Y)
-            test_Y = test_Y[temp]
-            test_X = test_X[temp]
-            
-            temp = np.argsort(train_Y)
-            train_Y = train_Y[temp]
-            train_X = train_X[temp]
-            
-            
-            
-            regr = linear_model.BayesianRidge(normalize=True)
-            #regr = linear_model.LogisticRegression(penalty='l1',solver='liblinear')
-            
-            # Train the model using the training sets
-            regr.fit(train_X,train_Y)
-            
-            
-            #Old model regression plotting with stats, see feature_extractor.py for up-to-date feature plotting 
-            # The coefficients
-            print 'Linear Regression'
-            print('Coefficients: \n', regr.coef_)
-            # The mean square error
-            print("Residual sum of squares: %.2f"
-                  % np.mean((regr.predict(test_X) - test_Y) ** 2))
-            # Explained variance score: 1 is perfect prediction
-            print('Variance score: %.2f' % regr.score(test_X, test_Y))
+            pickle.dump(regr,open('reg_model_%s_%i.pkl'%(domain,target_task),'wb'))
 
-            rfecv = RFECV(regr, step=1)
-            rfecv.fit(test_X,test_Y)
-            print 'The %i features are:'%rfecv.n_features_
+                        
+            #Prints the model fit statistics
             
-            temp = np.sort(f_name[np.argsort(rfecv.ranking_)[:rfecv.n_features_]])
-            print '\n'.join(i for i in temp) 
+            # The coefficients
+            print '\nTask %i'%target_task
+            print 'Total Users: %i'%len(output)
+            #print('Coefficients: \n', regr.coef_)
+            # The mean square error
+            print"Root Mean Squared Error %.2f"%metrics.mean_absolute_error(predicted,output)
             
-            
-            plt.figure()
-            
-            # Plot outputs
-            plt.subplot(221)
-            plt.scatter(range(len(train_Y)), train_Y,  color='black')
-            plt.plot(range(len(train_Y)), regr.predict(train_X), color='blue',
-                     linewidth=3)
-            plt.xticks(())
-            plt.yticks(())
-            plt.title('Linear Regression Training for Task %i'%target_task)
-            
-            plt.subplot(222)            
-            plt.scatter(range(len(test_Y)), test_Y,  color='black')
-            plt.plot(range(len(test_Y)), regr.predict(test_X), color='blue',
-                     linewidth=3)
-            plt.xticks(())
-            plt.yticks(())
-            plt.title('Linear Regression Test')
+            yhat = predicted
+            y = output                         # or [p(z) for z in x]
+            ybar = np.sum(output)/len(output)          # or sum(y)/len(y)
+            ssreg = np.sum((yhat-ybar)**2)   # or sum([ (yihat - ybar)**2 for yihat in yhat])
+            sstot = np.sum((y - ybar)**2)    # or sum([ (yi - ybar)**2 for yi in y])
+            Rsquared = ssreg / sstot
+            print 'R Squared = %.2f'%Rsquared
             
             
+                        
+                        
+            threshold = 2.99 #used for classification estimates
+            
+            print"Classification Error Rate:"
+            print 100*metrics.confusion_matrix(predicted<threshold,output<threshold)/len(output)
             
             
-            #'''
-            plt.figure()            
-            forest = RandomForestClassifier(n_estimators = 1)
-            #forest = svm.SVC()
-            # Fit the training data to the Survived labels and create the decision trees
-            forest = forest.fit(train_X,train_Y)
-            
-            # Take the same decision trees and run it on the test data
-            print '\nRandom Forest'
-            print("Residual sum of squares: %.2f"
-                  % np.mean((forest.predict(test_X) - test_Y) ** 2))
             # Explained variance score: 1 is perfect prediction
-            print('Variance score: %.2f' % forest.score(test_X, test_Y))
+            rank = cross_val_feature(f,output,regr)
+            temp = np.argsort(abs(rank))
+            for i in temp:
+                print '%s: %.2f'%(f_name[i],rank[i])
             
-            # Plot outputs
-            plt.subplot(223)
-            plt.scatter(range(len(train_Y)), train_Y,  color='black')
-            plt.plot(range(len(train_Y)), forest.predict(train_X), color='blue',
-                     linewidth=3)
-            plt.xticks(())
-            plt.yticks(())
-            plt.title('Random Forest Training')
             
-            plt.subplot(224)
-            plt.scatter(range(len(test_Y)), test_Y,  color='black')
-            plt.plot(range(len(test_Y)), forest.predict(test_X), color='blue',
-                     linewidth=3)
-            plt.xticks(())
-            plt.yticks(())
-            plt.title('Random Forest Test')
-            #'''
+            plot_regression(predicted,output)
+                
             plt.show()
             
             plt.savefig('Regression_%s_%i.png'%(domain,target_task))
